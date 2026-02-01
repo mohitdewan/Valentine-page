@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+<style>
+   body {
+       margin: 0;
+       overflow-x: hidden;
+       font-family: 'Arial', sans-serif;
+       text-align: center;
+       background: linear-gradient(135deg, #ff9ecb, #ff6fa8, #ffb3d9);
+       background-size: 400% 400%;
+       animation: gradientShift 12s ease infinite;
+   }
+   @keyframes gradientShift {
+       0% { background-position: 0% 50%; }
+       50% { background-position: 100% 50%; }
+       100% { background-position: 0% 50%; }
+   }
+   /* Title */
+   h1 {
+       margin-top: 70px;
+       font-size: 50px;
+       color: white;
+       text-shadow:
+           0 0 10px rgba(255,255,255,0.9),
+           0 0 20px rgba(255,255,255,0.7),
+           3px 3px #d1005d;
+   }
+   .typewriter {
+       display: inline-block;
+       border-right: 3px solid white;
+       white-space: nowrap;
+       overflow: hidden;
+       animation: typing 4s steps(40), blink .75s step-end infinite;
+   }
+   @keyframes typing {
+       from { width: 0; }
+       to { width: 100%; }
+   }
+   @keyframes blink {
+       50% { border-color: transparent; }
+   }
+   /* Buttons */
+   .buttons {
+       margin-top: 30px;
+   }
+   #yesBtn {
+       font-size: 42px;
+       padding: 22px 45px;
+       background: #ff0033;
+       color: white;
+       border: none;
+       border-radius: 25px;
+       cursor: pointer;
+       box-shadow: 0 0 25px rgba(255,0,80,0.9);
+       animation: pulse 1.5s infinite;
+   }
+   @keyframes pulse {
+       0% { transform: scale(1); }
+       50% { transform: scale(1.12); }
+       100% { transform: scale(1); }
+   }
+   #noBtn {
+       font-size: 16px;
+       padding: 6px 12px;
+       background: gray;
+       color: white;
+       border: none;
+       border-radius: 10px;
+       position: absolute;
+       cursor: pointer;
+   }
+   /* CLEAN SQUARE GRID WITH BORDERS */
+   .photo-grid {
+       margin-top: 40px;
+       display: grid;
+       grid-template-columns: repeat(4, 1fr);
+       gap: 25px;
+       width: 70%;
+       margin-left: auto;
+       margin-right: auto;
+   }
+   .photo-grid img {
+       width: 100%;
+       height: 180px;
+       object-fit: cover;
+       border-radius: 20px;
+       border: 6px solid white;
+       box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+       animation: fadeIn 1.2s ease-out;
+   }
+   @keyframes fadeIn {
+       from { opacity: 0; transform: scale(0.9); }
+       to { opacity: 1; transform: scale(1); }
+   }
+   /* FLOATING HEARTS — ROTATE + DRIFT + FADE + RESIZE + GLOW */
+   .heart {
+       position: fixed;
+       color: #ff3366;
+       animation: fall 9s linear forwards;
+       text-shadow: 0 0 12px rgba(255, 0, 80, 0.8);
+       opacity: 0;
+       z-index: 9; /* BELOW overlay, ABOVE grid */
+   }
+   @keyframes fall {
+       0% {
+           transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.6);
+           opacity: 0;
+       }
+       20% { opacity: 1; }
+       50% {
+           transform: translateY(40vh) translateX(-20px) rotate(180deg) scale(1.2);
+       }
+       80% {
+           transform: translateY(80vh) translateX(20px) rotate(300deg) scale(0.9);
+       }
+       100% {
+           transform: translateY(110vh) translateX(-10px) rotate(360deg) scale(0.5);
+           opacity: 0;
+       }
+   }
+   /* CURSOR HEART TRAIL */
+   .trail-heart {
+       position: fixed;
+       pointer-events: none;
+       animation: fadeTrail 1.5s forwards;
+       font-size: 20px;
+       z-index: 11; /* ABOVE everything */
+       text-shadow: 0 0 12px rgba(255, 0, 80, 0.9);
+   }
+   @keyframes fadeTrail {
+       from { opacity: 1; transform: scale(1); }
+       to { opacity: 0; transform: scale(2); }
+   }
+   /* CLEAN OVERLAY */
+   #messageOverlay {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: rgba(0,0,0,0.55);
+       display: none;
+       align-items: center;
+       justify-content: center;
+       z-index: 10;
+       animation: overlayFade 0.4s ease-out;
+   }
+   @keyframes overlayFade {
+       from { opacity: 0; }
+       to { opacity: 1; }
+   }
+   .overlay-box {
+       background: rgba(255,255,255,0.15);
+       padding: 35px 30px;
+       border-radius: 20px;
+       border: 2px solid rgba(255,255,255,0.7);
+       backdrop-filter: blur(8px);
+       max-width: 480px;
+       color: white;
+       box-shadow: 0 0 25px rgba(255,255,255,0.4);
+       animation: boxPop 0.4s ease-out;
+   }
+   @keyframes boxPop {
+       from { transform: scale(0.85); opacity: 0; }
+       to { transform: scale(1); opacity: 1; }
+   }
+   .closeBtn {
+       margin-top: 15px;
+       padding: 10px 20px;
+       background: white;
+       color: #ff0066;
+       border: none;
+       border-radius: 12px;
+       cursor: pointer;
+       font-size: 18px;
+       font-weight: bold;
+   }
+</style>
+</head>
+<body>
+<h1><span class="typewriter">Samridhi Kumar, will you be my Valentine? ❤️</span></h1>
+<div class="buttons">
+<button id="yesBtn">YES</button>
+<button id="noBtn">no</button>
+</div>
+<!-- CLEAN SQUARE GRID -->
+<div class="photo-grid">
+<img src="mohit1.jpg">
+<img src="sam1.jpg">
+<img src="us1.jpg">
+<img src="us2.jpg">
+<img src="extra1.jpg">
+<img src="extra2.jpg">
+<img src="extra3.jpg">
+<img src="extra4.jpg">
+</div>
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
+<!-- CLEAN OVERLAY -->
+<div id="messageOverlay">
+<div class="overlay-box">
+<h2>She said YES ❤️</h2>
+<p>To more travel, more food, more laughter, more memories…<br>to more life with you, Samridhi.</p>
+<button class="closeBtn" id="closeOverlay">Close</button>
+</div>
+</div>
+<script>
+// Start music on first click
+document.addEventListener("click", () => {
+   const music = document.getElementById("bgMusic");
+   if (music.paused) music.play();
+}, { once: true });
+// Move NO button
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+   noBtn.style.top = Math.random() * 80 + "vh";
+   noBtn.style.left = Math.random() * 80 + "vw";
+});
+// YES button → show overlay + WhatsApp
+const yesBtn = document.getElementById("yesBtn");
+const overlay = document.getElementById("messageOverlay");
+yesBtn.onclick = () => {
+   overlay.style.display = "flex";
+   window.open("https://wa.me/?text=Yes%20I%20will%20be%20your%20Valentine%20❤️", "_blank");
+};
+// Close overlay
+document.getElementById("closeOverlay").onclick = () => {
+   overlay.style.display = "none";
+};
+// FLOATING HEARTS (background)
+setInterval(() => {
+   const heart = document.createElement("div");
+   heart.className = "heart";
+   heart.innerHTML = "❤️";
+   heart.style.left = Math.random() * 100 + "vw";
+   heart.style.fontSize = (24 + Math.random() * 20) + "px";
+   document.body.appendChild(heart);
+   setTimeout(() => heart.remove(), 9000);
+}, 600);
+// CURSOR HEART TRAIL
+document.addEventListener("mousemove", (e) => {
+   const heart = document.createElement("div");
+   heart.className = "trail-heart";
+   heart.innerHTML = "❤️";
+   heart.style.left = e.pageX + "px";
+   heart.style.top = e.pageY + "px";
+   document.body.appendChild(heart);
+   setTimeout(() => heart.remove(), 1500);
+});
+</script>
+</body>
+</html>
+ 
+ 
+
+ 
